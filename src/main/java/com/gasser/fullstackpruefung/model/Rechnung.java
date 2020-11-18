@@ -18,26 +18,18 @@ public class Rechnung {
 	
 	@NotNull
 	@Column(name = "rechnungsNr")
-	private int rechnungsNr; //uuid?
+	private String nr; //uuid?
 	
 	@Column(name = "rechnungsDatum", nullable = false, updatable = false)
-	private String date;
+	private String datum;
 	
 	@Column(name = "rechnungsBetrag", nullable = false, updatable = false)
-	private long rechnungsBetrag;
+	private String betrag;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "kunde_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Kunde kunde;
-	
-	public Rechnung(int rechnungsNr, String date, long rechnungsBetrag, Kunde kunde) {
-		this.id = UUID.randomUUID();
-		this.rechnungsNr = rechnungsNr;
-		this.date = date;
-		this.rechnungsBetrag = rechnungsBetrag;
-		this.kunde = kunde;
-	}
 	
 	public Rechnung() {
 		this.id = UUID.randomUUID();
@@ -51,28 +43,28 @@ public class Rechnung {
 		this.id = id;
 	}
 	
-	public int getRechnungsNr() {
-		return rechnungsNr;
+	public String getNr() {
+		return nr;
 	}
 	
-	public void setRechnungsNr(int rechnungsNr) {
-		this.rechnungsNr = rechnungsNr;
+	public void setNr(String nr) {
+		this.nr = nr;
 	}
 	
-	public String getDate() {
-		return date;
+	public String getDatum() {
+		return datum;
 	}
 	
-	public void setDate(String date) {
-		this.date = date;
+	public void setDatum(String datum) {
+		this.datum = datum;
 	}
 	
-	public long getRechnungsBetrag() {
-		return rechnungsBetrag;
+	public String getBetrag() {
+		return betrag;
 	}
 	
-	public void setRechnungsBetrag(long rechnungsBetrag) {
-		this.rechnungsBetrag = rechnungsBetrag;
+	public void setBetrag(String betrag) {
+		this.betrag = betrag;
 	}
 	
 	public Kunde getKunde() {
