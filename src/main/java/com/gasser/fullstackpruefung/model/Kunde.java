@@ -22,6 +22,11 @@ public class Kunde {
 	@Size(max = 50)
 	private String vorname;
 	
+	public Kunde(@Size(max = 50) String nachname, @Size(max = 50) String vorname) {
+		this.id = id;
+		this.nachname = nachname;
+		this.vorname = vorname;
+	}
 	
 	public UUID getId() {
 		return id;
@@ -45,13 +50,5 @@ public class Kunde {
 	
 	public void setVorname(String vorname) {
 		this.vorname = vorname;
-	}
-	
-	public Set<Rechnung> getRechnungen() {
-		return rechnungen;
-	}
-	
-	public void setRechnungen(Set<Rechnung> rechnungen) {
-		this.rechnungen = rechnungen;
 	}
 }

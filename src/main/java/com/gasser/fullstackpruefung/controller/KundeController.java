@@ -1,8 +1,11 @@
 package com.gasser.fullstackpruefung.controller;
 
-import com.gasser.fullstackpruefung.repository.KundeService;
 import com.gasser.fullstackpruefung.model.Kunde;
+import com.gasser.fullstackpruefung.repository.KundeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,35 +14,34 @@ import java.util.UUID;
 @RestController
 public class KundeController {
 	
-	private KundeService kundeService;
-	
 	@Autowired
-	public KundeController(KundeService kundeService) {
-		this.kundeService = kundeService;
+	private KundeRepository kundeRepository;
+	
+	@GetMapping("/kunden")
+	public Page<Kunde> getAllKunden(Pageable pageable) {
+		return kundeRepository.findAll(pageable);
 	}
 	
 	@PostMapping("/kunden")
-	public void addKunde (@RequestBody Kunde kunde) {
-		kundeService.addKunde(kunde);
+	public Kunde addKunde(@RequestBody Kunde kunde) {
+		return kundeRepository.save(kunde);
 	}
 	
-	@GetMapping("/kunden")
-	public List<Kunde> getAllKunden() {
-		return kundeService.getAllKunden();
+	@PutMapping("/kunden/{kundenId}")
+	public Kunde updateKunde(@PathVariable(value = "kundenId") Long kundenId, @RequestBody Kunde newKunde) {
+		return kundeRepository.findById(kundenId).map(kunde -> {
+			kunde.setNachname(newKunde.getNachname());
+			kunde.setVorname(newKunde.getVorname());
+			return kundeRepository.save(kunde);
+		}).orElse(null);
 	}
 	
-	@GetMapping("/kunden/{kundeId}")
-	public Kunde getKundeById(@PathVariable("kundeId")UUID id) {
-		return kundeService.getKundeById(id).orElse(null);
+	@DeleteMapping("/kunden/{kundenId}")
+	public ResponseEntity<?> deleteKunde(@PathVariable(value = "kundenId") Long kundenId) {
+		return kundeRepository.findById(kundenId).map(kunde -> {
+			kundeRepository.delete(kunde);
+			return ResponseEntity.ok().build();
+		}).orElse(null);
 	}
 	
-	@DeleteMapping("/kunden/{kundeId}")
-	public void deleteKunde(@PathVariable("kundeId") UUID id) {
-		kundeService.deleteKunde(id);
-	}
-	
-	@PutMapping("/kunden/{kundeId}")
-	public void updateKunde(@PathVariable("kundeId") UUID id, @RequestBody Kunde kundeToUpdate) {
-		kundeService.updateKunde(id, kundeToUpdate);
-	}
 }
