@@ -45,9 +45,9 @@ public class RechnungController {
 		return rechnungRepository.findById(rechnungId).map(rechnung -> {
 			rechnung.setId(newRechnung.getId());
 			rechnung.setKunde(newRechnung.getKunde());
-			rechnung.setDate(newRechnung.getDate());
-			rechnung.setRechnungsNr(newRechnung.getRechnungsNr());
-			rechnung.setRechnungsBetrag(newRechnung.getRechnungsBetrag());
+			rechnung.setDatum(newRechnung.getDatum());
+			rechnung.setNr(newRechnung.getNr());
+			rechnung.setBetrag(newRechnung.getBetrag());
 			return ResponseEntity.ok().build();
 		}).orElse(null);
 	}
