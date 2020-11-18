@@ -22,14 +22,6 @@ public class Kunde {
 	@Size(max = 50)
 	private String vorname;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "kunde")
-	private Set<Rechnung> rechnungen = new HashSet<>();
-	
-	public Kunde(@JsonProperty("id") UUID id, @JsonProperty("nachname") @Size(max = 50) String nachname, @JsonProperty("vorname") @Size(max = 50) String vorname) {
-		this.id = id;
-		this.nachname = nachname;
-		this.vorname = vorname;
-	}
 	
 	public UUID getId() {
 		return id;

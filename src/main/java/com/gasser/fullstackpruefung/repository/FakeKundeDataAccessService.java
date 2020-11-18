@@ -1,4 +1,4 @@
-package com.gasser.fullstackpruefung.dao;
+package com.gasser.fullstackpruefung.repository;
 
 import com.gasser.fullstackpruefung.model.Kunde;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository("fakeRepo")
-public class FakeKundeDataAccessService implements KundeDao {
+public class FakeKundeDataAccessService implements KundeRepository {
 	
 	private static List<Kunde> db = new ArrayList<>();
 	

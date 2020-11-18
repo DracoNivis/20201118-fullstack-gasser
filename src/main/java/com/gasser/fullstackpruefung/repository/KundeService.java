@@ -1,4 +1,4 @@
-package com.gasser.fullstackpruefung.dao;
+package com.gasser.fullstackpruefung.repository;
 
 import com.gasser.fullstackpruefung.model.Kunde;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,30 +11,30 @@ import java.util.UUID;
 @Service
 public class KundeService {
 	
-	private final KundeDao kundeDao;
+	private final KundeRepository kundeRepository;
 	
 	@Autowired
-	public KundeService(KundeDao kundeDao) {
-		this.kundeDao = kundeDao;
+	public KundeService(KundeRepository kundeRepository) {
+		this.kundeRepository = kundeRepository;
 	}
 	
 	public int addKunde(Kunde kunde) {
-		return kundeDao.insertKunde(kunde);
+		return kundeRepository.insertKunde(kunde);
 	}
 	
 	public List<Kunde> getAllKunden() {
-		return kundeDao.selectAllKunden();
+		return kundeRepository.selectAllKunden();
 	}
 	
 	public Optional<Kunde> getKundeById(UUID id) {
-		return kundeDao.selectKundeById(id);
+		return kundeRepository.selectKundeById(id);
 	}
 	
 	public int deleteKunde(UUID id) {
-		return kundeDao.deleteKundeById(id);
+		return kundeRepository.deleteKundeById(id);
 	}
 	
 	public int updateKunde(UUID id, Kunde newKunde) {
-		return kundeDao.updateKundeById(id, newKunde);
+		return kundeRepository.updateKundeById(id, newKunde);
 	}
 }

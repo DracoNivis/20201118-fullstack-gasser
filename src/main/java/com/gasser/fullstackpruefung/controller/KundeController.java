@@ -1,7 +1,6 @@
 package com.gasser.fullstackpruefung.controller;
 
-import com.gasser.fullstackpruefung.dao.KundeDao;
-import com.gasser.fullstackpruefung.dao.KundeService;
+import com.gasser.fullstackpruefung.repository.KundeService;
 import com.gasser.fullstackpruefung.model.Kunde;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/kunde")
 public class KundeController {
 	
 	private KundeService kundeService;
@@ -20,28 +18,28 @@ public class KundeController {
 		this.kundeService = kundeService;
 	}
 	
-	@PostMapping
+	@PostMapping("/kunden")
 	public void addKunde (@RequestBody Kunde kunde) {
 		kundeService.addKunde(kunde);
 	}
 	
-	@GetMapping
+	@GetMapping("/kunden")
 	public List<Kunde> getAllKunden() {
 		return kundeService.getAllKunden();
 	}
 	
-	@GetMapping(path = "{id}")
-	public Kunde getKundeById(@PathVariable("id")UUID id) {
+	@GetMapping("/kunden/{kundeId}")
+	public Kunde getKundeById(@PathVariable("kundeId")UUID id) {
 		return kundeService.getKundeById(id).orElse(null);
 	}
 	
-	@DeleteMapping(path = "{id}")
-	public void deleteKunde(@PathVariable("id") UUID id) {
+	@DeleteMapping("/kunden/{kundeId}")
+	public void deleteKunde(@PathVariable("kundeId") UUID id) {
 		kundeService.deleteKunde(id);
 	}
 	
-	@PutMapping(path = "{id}")
-	public void updateKunde(@PathVariable("id") UUID id, @RequestBody Kunde kundeToUpdate) {
+	@PutMapping("/kunden/{kundeId}")
+	public void updateKunde(@PathVariable("kundeId") UUID id, @RequestBody Kunde kundeToUpdate) {
 		kundeService.updateKunde(id, kundeToUpdate);
 	}
 }

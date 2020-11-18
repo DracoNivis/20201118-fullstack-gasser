@@ -2,11 +2,10 @@ package com.gasser.fullstackpruefung.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.UUID;
@@ -27,15 +26,10 @@ public class Rechnung {
 	@Column(name = "rechnungsBetrag", nullable = false, updatable = false)
 	private long rechnungsBetrag;
 	
-	public Rechnung() {
-	}
-	
-	public Rechnung(@JsonProperty("id") UUID id, @JsonProperty("rechnungsNr") int rechnungsNr, @JsonProperty("date") Date date, @JsonProperty("rechnungsBetrag") long rechnungsBetrag) {
-		this.id = id;
-		this.rechnungsNr = rechnungsNr;
-		this.date = date;
-		this.rechnungsBetrag = rechnungsBetrag;
-	}
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "kunde_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Kunde kunde;
 	
 	public UUID getId() {
 		return id;
@@ -67,5 +61,13 @@ public class Rechnung {
 	
 	public void setRechnungsBetrag(long rechnungsBetrag) {
 		this.rechnungsBetrag = rechnungsBetrag;
+	}
+	
+	public Kunde getKunde() {
+		return kunde;
+	}
+	
+	public void setKunde(Kunde kunde) {
+		this.kunde = kunde;
 	}
 }
