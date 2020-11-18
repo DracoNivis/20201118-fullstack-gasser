@@ -22,12 +22,6 @@ public class Kunde {
 	@Size(max = 50)
 	private String vorname;
 	
-	public Kunde(@Size(max = 50) String nachname, @Size(max = 50) String vorname) {
-		this.id = UUID.randomUUID();
-		this.nachname = nachname;
-		this.vorname = vorname;
-	}
-	
 	public Kunde() {
 		this.id = UUID.randomUUID();
 	}

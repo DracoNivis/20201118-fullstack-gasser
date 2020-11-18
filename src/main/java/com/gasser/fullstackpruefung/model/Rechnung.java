@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.UUID;
 
@@ -17,13 +18,15 @@ public class Rechnung {
 	private UUID id;
 	
 	@NotNull
-	@Column(name = "rechnungsNr")
+	@Size(max = 15)
 	private String nr; //uuid?
 	
-	@Column(name = "rechnungsDatum", nullable = false, updatable = false)
+	@NotNull
+	@Size(max = 10)
 	private String datum;
 	
-	@Column(name = "rechnungsBetrag", nullable = false, updatable = false)
+	@NotNull
+	@Size(max = 20)
 	private String betrag;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
