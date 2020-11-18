@@ -1,5 +1,6 @@
 package com.gasser.fullstackpruefung.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -24,5 +25,41 @@ public class Kunde {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "kunde")
 	private Set<Rechnung> rechnungen = new HashSet<>();
 	
+	public Kunde(@JsonProperty("id") UUID id, @JsonProperty("nachname") @Size(max = 50) String nachname, @JsonProperty("vorname") @Size(max = 50) String vorname) {
+		this.id = id;
+		this.nachname = nachname;
+		this.vorname = vorname;
+	}
 	
+	public UUID getId() {
+		return id;
+	}
+	
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
+	public String getNachname() {
+		return nachname;
+	}
+	
+	public void setNachname(String nachname) {
+		this.nachname = nachname;
+	}
+	
+	public String getVorname() {
+		return vorname;
+	}
+	
+	public void setVorname(String vorname) {
+		this.vorname = vorname;
+	}
+	
+	public Set<Rechnung> getRechnungen() {
+		return rechnungen;
+	}
+	
+	public void setRechnungen(Set<Rechnung> rechnungen) {
+		this.rechnungen = rechnungen;
+	}
 }
