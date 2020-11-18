@@ -23,7 +23,7 @@ public class KundeService {
 	}
 	
 	public List<Kunde> getAllKunden() {
-		return kundeDao.selectAllPersons();
+		return kundeDao.selectAllKunden();
 	}
 	
 	public Optional<Kunde> getKundeById(UUID id) {
@@ -35,6 +35,6 @@ public class KundeService {
 	}
 	
 	public int updateKunde(UUID id, Kunde newKunde) {
-		return kundeDao.updatekunde(id, newKunde);
+		return kundeDao.updateKundeById(id, newKunde);
 	}
 }
