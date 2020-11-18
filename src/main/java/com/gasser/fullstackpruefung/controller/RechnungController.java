@@ -25,7 +25,7 @@ public class RechnungController {
 	
 	@PostMapping("/kunden/{kundeId}/rechnungen")
 	public Rechnung addRechnung(@PathVariable(value = "kundeId") Long kundeId, @RequestBody Rechnung rechnung) {
-		return rechnungRepository.findById(kundeId).map(kunde -> {
+		return kundeRepository.findById(kundeId).map(kunde -> {
 			rechnung.setKunde(kunde);
 			return rechnungRepository.save(rechnung);
 		}).orElse(null);
