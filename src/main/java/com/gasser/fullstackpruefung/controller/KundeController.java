@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
+
 
 @RestController
 public class KundeController {
@@ -22,13 +22,18 @@ public class KundeController {
 		return kundeRepository.findAll(pageable);
 	}
 	
+	@GetMapping("/kunden/{kundenId}")
+	public Page<Kunde> getKundeById(@PathVariable(value = "kundenId") UUID kundenId, Pageable pageable) {
+		return kundeRepository.findById(kundenId, pageable);
+	}
+	
 	@PostMapping("/kunden")
 	public Kunde addKunde(@RequestBody Kunde kunde) {
 		return kundeRepository.save(kunde);
 	}
 	
 	@PutMapping("/kunden/{kundenId}")
-	public Kunde updateKunde(@PathVariable(value = "kundenId") Long kundenId, @RequestBody Kunde newKunde) {
+	public Kunde updateKunde(@PathVariable(value = "kundenId") UUID kundenId, @RequestBody Kunde newKunde) {
 		return kundeRepository.findById(kundenId).map(kunde -> {
 			kunde.setNachname(newKunde.getNachname());
 			kunde.setVorname(newKunde.getVorname());
@@ -37,7 +42,7 @@ public class KundeController {
 	}
 	
 	@DeleteMapping("/kunden/{kundenId}")
-	public ResponseEntity<?> deleteKunde(@PathVariable(value = "kundenId") Long kundenId) {
+	public ResponseEntity<?> deleteKunde(@PathVariable(value = "kundenId") UUID kundenId) {
 		return kundeRepository.findById(kundenId).map(kunde -> {
 			kundeRepository.delete(kunde);
 			return ResponseEntity.ok().build();

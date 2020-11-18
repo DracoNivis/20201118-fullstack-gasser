@@ -30,6 +30,18 @@ public class Rechnung {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Kunde kunde;
 	
+	public Rechnung(int rechnungsNr, Date date, long rechnungsBetrag, Kunde kunde) {
+		this.id = UUID.randomUUID();
+		this.rechnungsNr = rechnungsNr;
+		this.date = date;
+		this.rechnungsBetrag = rechnungsBetrag;
+		this.kunde = kunde;
+	}
+	
+	public Rechnung() {
+		this.id = UUID.randomUUID();
+	}
+	
 	public UUID getId() {
 		return id;
 	}

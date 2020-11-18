@@ -23,9 +23,13 @@ public class Kunde {
 	private String vorname;
 	
 	public Kunde(@Size(max = 50) String nachname, @Size(max = 50) String vorname) {
-		this.id = id;
+		this.id = UUID.randomUUID();
 		this.nachname = nachname;
 		this.vorname = vorname;
+	}
+	
+	public Kunde() {
+		this.id = UUID.randomUUID();
 	}
 	
 	public UUID getId() {
