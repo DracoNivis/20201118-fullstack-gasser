@@ -17,10 +17,11 @@ public class Rechnung {
 	private UUID id;
 	
 	@NotNull
+	@Column(name = "rechnungsNr")
 	private int rechnungsNr; //uuid?
 	
 	@Column(name = "rechnungsDatum", nullable = false, updatable = false)
-	private Date date;
+	private String date;
 	
 	@Column(name = "rechnungsBetrag", nullable = false, updatable = false)
 	private long rechnungsBetrag;
@@ -30,7 +31,7 @@ public class Rechnung {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Kunde kunde;
 	
-	public Rechnung(int rechnungsNr, Date date, long rechnungsBetrag, Kunde kunde) {
+	public Rechnung(int rechnungsNr, String date, long rechnungsBetrag, Kunde kunde) {
 		this.id = UUID.randomUUID();
 		this.rechnungsNr = rechnungsNr;
 		this.date = date;
@@ -58,11 +59,11 @@ public class Rechnung {
 		this.rechnungsNr = rechnungsNr;
 	}
 	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	
